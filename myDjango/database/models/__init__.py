@@ -1,4 +1,5 @@
 from .user import User
+from .role import Role
 
 def get_all_fields(model, excluded_fields=None):
     if excluded_fields is None:

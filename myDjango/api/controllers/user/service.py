@@ -9,7 +9,7 @@ def post_user(name, email, age=None):
 
 def get_user(_id):
 	user = User.objects.exclude(action_type=3).get(_id=_id)
-	if user: return {"id": str(user._id), "name": user.name, "email": user.email, "age": user.age} 
+	if user: return {"id": str(user._id), "name": user.name, "email": user.email, "age": user.age, "action_type":user.action_type} 
 	else: return None
 
 def get_all(page, limit):
@@ -28,7 +28,8 @@ def get_all(page, limit):
                 "id": str(user._id),
                 "name": user.name,
                 "email": user.email,
-                "age": user.age
+                "age": user.age,
+                "action_type": user.action_type,
             }
             for user in users
         ]
