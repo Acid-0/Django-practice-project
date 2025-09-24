@@ -7,6 +7,7 @@ class User(models.Model):
     email = models.CharField(max_length=255)
     # email = models.CharField(max_length=255, unique=True)
     age = models.IntegerField(default=0)
+    action_type = models.IntegerField(default=1)
 
     class Meta:
         db_table = "user"  # custom collection name

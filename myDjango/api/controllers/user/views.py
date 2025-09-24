@@ -1,3 +1,4 @@
+import math
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -15,11 +16,13 @@ def view_post(request):
 @api_view(['GET'])
 def view_get(request):
     _id = request.query_params.get("_id")  # safer for GET requests
-    result = get_user(_id=_id)
-    return Response({"result": result}, status=status.HTTP_200_OK)
+    res = get_user(_id=_id),
+    return Response({"result": res}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def view_get_all(request):
-    result = get_all()
-    return Response({"result": result}, status=status.HTTP_200_OK)
+    page = request.data.get("page")or 1
+    limit = request.data.get("limit") or 10
+    res = get_all(page=page,limit=limit)
+    return Response({"total_pages":res["total_pages"],"page":page, "limit":limit, "result": res["result"]}, status=status.HTTP_200_OK)
