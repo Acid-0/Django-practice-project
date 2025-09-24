@@ -1,0 +1,65 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+# If you collect static to STATIC_ROOT
+/static/
+
+# Django migrations (optional, only if you don’t want to commit them)
+# **Careful**: Comment this out if you want migrations in repo
+#migrations/
+
+# Environment variables
+.env
+*.env
+.env.*.local
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+*.egg-info/
+
+# IDE & editor files
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Coverage & test reports
+htmlcov/
+.tox/
+.coverage
+coverage.xml
+*.cover
+.pytest_cache/
+nosetests.xml
+.junit.xml
+
+# Pipenv & poetry
+Pipfile.lock
+poetry.lock
+
+# MyPy
+.mypy_cache/
+
+# PyInstaller
+*.spec
+build/
+dist/
+
+# Local settings
+settings_local.py
