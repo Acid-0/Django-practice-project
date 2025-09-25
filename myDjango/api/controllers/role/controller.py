@@ -32,16 +32,23 @@ def get(request):
 
 @api_view(['GET'])
 def get_all(request):
-    page = request.data.get("page")or 1
-    limit = request.data.get("limit") or 10
-    res = getAllService(page=page,limit=limit)
-    finaldata= success_response(data=res["result"], message=ResponseMessages.DATA_FOUND.value, page=page,limit=limit, total_records=res["total"] )
-    return finaldata
-    # return Response({"total_pages":res["total_pages"],"page":page, "limit":limit, "result": res["result"]}, status=status.HTTP_200_OK)
+    try:
+        page = request.data.get("page")or 1
+        limit = request.data.get("limit") or 10
+        res = getAllService(page=page,limit=limit)
+        return success_response(data=res["result"], message=ResponseMessages.DATA_FOUND.value, page=page,limit=limit, total_records=res["total"] )
+    except CustomError as ce:
+        return error_response(message=ce.message, code=ce.status_code, data=ce.data)
+    except Exception as err:
+        return error_response(message=ResponseMessages.EXCEPTION.value, code=ResponseCodes.exception.value, errors=err )
 
 @api_view(['POST'])
 def deleteById(request):
-    _id = request.data.get("_id")
-    res = deleteByIdService(_id=_id),
-    return success_response(data=res, message=ResponseMessages.DELETE_SUCCESS.value)
-    # return Response({"result": res}, status=status.HTTP_200_OK)
+    try:
+        _id = request.data.get("_id")
+        res = deleteByIdService(_id=_id)
+        return success_response(data=res, message=ResponseMessages.DELETE_SUCCESS.value)
+    except CustomError as ce:
+        return error_response(message=ce.message, code=ce.status_code, data=ce.data)
+    except Exception as err:
+        return error_response(message=ResponseMessages.EXCEPTION.value, code=ResponseCodes.exception.value, errors=err )
