@@ -288,4 +288,4 @@ If you want, I can also:
 * for DB:
    pip install djongo
 
-*python manage.py runserver
+* python manage.py runserver
