@@ -1,7 +1,7 @@
 from database.models import Role
 from django.core.exceptions import ObjectDoesNotExist
 from bson import ObjectId
-import math
+from utils.customError import Errors
 
 def post(title, actions):
 	role = Role(title=title, actions=actions)
@@ -9,10 +9,13 @@ def post(title, actions):
 	return str(role._id)
 
 def get(_id):
-	role = Role.objects.exclude(action_type=3).filter(_id=ObjectId(_id)).first()
-     
-	if role: return {"id": str(role._id), "title": role.title, "actions": role.actions, "action_type":role.action_type} 
-	else: return None
+    if not _id:
+     raise Errors.BAD_REQUEST
+    
+    role = Role.objects.exclude(action_type=3).filter(_id=ObjectId(_id)).first()
+    
+    if role: return {"id": str(role._id), "title": role.title, "actions": role.actions, "action_type":role.action_type} 
+    else: raise Errors.NOT_FOUND
 
 def get_all(page, limit):
     queryset = Role.objects.exclude(action_type=3)
@@ -20,11 +23,9 @@ def get_all(page, limit):
 
     offset = (page - 1) * limit
     roles = queryset[offset:offset + limit]
-    total_pages= math.ceil(total / limit)
 
     return {
         "total": total,
-        "total_pages": total_pages,
         "result": [
             {
                 "id": str(role._id),
