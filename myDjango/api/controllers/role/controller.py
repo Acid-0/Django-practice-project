@@ -1,5 +1,3 @@
-from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from utils.response import success_response, error_response
 from utils.enums import ResponseMessages, ResponseCodes
@@ -29,7 +27,7 @@ def get(request):
     except CustomError as ce:
         return error_response(message=ce.message, code=ce.status_code, data=ce.data)
     except Exception as err:
-          return error_response(message=ResponseMessages.EXCEPTION.value, code=ResponseCodes.exception.value, errors=err )
+        return error_response(message=ResponseMessages.EXCEPTION.value, code=ResponseCodes.exception.value, errors=err )
 
 
 @api_view(['GET'])
